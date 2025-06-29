@@ -26,7 +26,7 @@ import {
 } from "@/components/ui/sidebar"
 
 export function NavProjects({
-  cells,
+  cells,  
   activeItem,
   handleItemClick,
 }: {

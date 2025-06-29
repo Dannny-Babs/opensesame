@@ -5,7 +5,7 @@ import {
 
     Bot,
     Settings2,
-    HelpCircle,
+    Headset,
     Home,
     Workflow,
 } from "lucide-react"
@@ -108,7 +108,7 @@ const data = {
         {
             name: "Help & Support",
             url: "#",
-            icon: HelpCircle,
+            icon: Headset,
         },
     ]
 }
