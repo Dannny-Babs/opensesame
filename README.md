@@ -54,11 +54,13 @@ opensesame/
 ## 🎨 Node Types
 
 ### Action Nodes (Blue)
+
 - Represent tasks or actions in your workflow
 - Have input (left) and output (right) connection points
 - Styled with blue gradient and lightning icon
 
 ### Condition Nodes (Orange/Yellow)
+
 - Represent decision points in your workflow
 - Diamond-shaped with rotation effect
 - Multiple output points for Yes/No logic
@@ -83,22 +85,26 @@ npm run lint
 ## 🌟 Key Features Implemented
 
 ### Drag and Drop
+
 - Drag nodes from sidebar to canvas
 - Visual feedback during drag operations
 - Automatic node positioning
 
 ### Interactive Canvas
+
 - Pan and zoom functionality
 - Background grid for alignment
 - Minimap for navigation
 - Connection validation
 
 ### State Management
+
 - Centralized state with Zustand
 - Real-time updates for nodes and edges
 - Proper TypeScript interfaces
 
 ### Visual Polish
+
 - Smooth animations with Framer Motion
 - Gradient backgrounds and shadows
 - Hover effects and selection states
@@ -120,12 +126,14 @@ Here are some suggested enhancements you could add:
 ## 📝 Usage Examples
 
 ### Creating a Simple Workflow
+
 1. Drag an "Action Node" to the canvas
 2. Add a "Condition Node" 
 3. Connect them by dragging from output to input
 4. Add more nodes to build complex logic
 
 ### Connecting Nodes
+
 - **Action to Action**: Linear workflow
 - **Action to Condition**: Decision point
 - **Condition to Multiple Actions**: Branching logic
