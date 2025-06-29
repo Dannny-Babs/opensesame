@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import {  Geist_Mono, Manrope } from "next/font/google";
 import "./globals.css";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { SidebarProvider } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
 
 
@@ -34,7 +34,6 @@ export default function RootLayout({
         <SidebarProvider>
           <AppSidebar />
           <main className="flex-1">
-            <SidebarTrigger />
             {children}
           </main>
         </SidebarProvider>

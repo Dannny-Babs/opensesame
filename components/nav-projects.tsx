@@ -27,12 +27,16 @@ import {
 
 export function NavProjects({
   cells,
+  activeItem,
+  handleItemClick,
 }: {
   cells: {
     name: string
     url: string
     icon: LucideIcon
   }[]
+  activeItem: string | null
+  handleItemClick: (item: string) => void
 }) {
   const { isMobile } = useSidebar()
 
@@ -42,7 +46,11 @@ export function NavProjects({
       <SidebarMenu>
         {cells.map((item) => (
           <SidebarMenuItem key={item.name}>
-            <SidebarMenuButton asChild>
+            <SidebarMenuButton
+              asChild
+              isActive={activeItem === item.name}
+              onClick={() => handleItemClick(item.name)}
+            >
               <a href={item.url}>
                 <item.icon />
                 <span>{item.name}</span>

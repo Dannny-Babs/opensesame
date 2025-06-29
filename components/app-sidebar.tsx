@@ -2,11 +2,12 @@
 
 import * as React from "react"
 import {
-    BookOpen,
+
     Bot,
     Settings2,
-    SquareTerminal,
     HelpCircle,
+    Home,
+    Workflow,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -24,8 +25,10 @@ import {
     SidebarMenuButton,
 } from "@/components/ui/sidebar"
 import Image from "next/image"
+import { useState, useEffect } from "react"
+import { usePathname } from "next/navigation"
 
-// This is sample data.
+
 const data = {
     user: {
         name: "Daniel Babalola",
@@ -35,68 +38,20 @@ const data = {
 
     navMain: [
         {
-            title: "Playground",
-            url: "#",
-            icon: SquareTerminal,
-            isActive: true,
-            items: [
-                {
-                    title: "History",
-                    url: "#",
-                },
-                {
-                    title: "Starred",
-                    url: "#",
-                },
-                {
-                    title: "Settings",
-                    url: "#",
-                },
-            ],
+            name: "Overview",
+            url: "/",
+            icon: Home,
         },
         {
-            title: "Models",
-            url: "#",
+            name: "Cells",
+            url: "/dashboard",
             icon: Bot,
-            items: [
-                {
-                    title: "Genesis",
-                    url: "#",
-                },
-                {
-                    title: "Explorer",
-                    url: "#",
-                },
-                {
-                    title: "Quantum",
-                    url: "#",
-                },
-            ],
         },
         {
-            title: "Documentation",
-            url: "#",
-            icon: BookOpen,
-            items: [
-                {
-                    title: "Introduction",
-                    url: "#",
-                },
-                {
-                    title: "Get Started",
-                    url: "#",
-                },
-                {
-                    title: "Tutorials",
-                    url: "#",
-                },
-                {
-                    title: "Changelog",
-                    url: "#",
-                },
-            ],
+            name: "Macros",
+            url: "/macros",
+            icon: Workflow,
         },
-
     ],
     cells: [
         {
@@ -159,6 +114,24 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+    const pathname = usePathname()
+    const [activeItem, setActiveItem] = useState<string | null>(null);
+
+    // Set active item based on current route
+    useEffect(() => {
+        const currentItem = data.navMain.find(item => item.url === pathname)
+        if (currentItem) {
+            setActiveItem(currentItem.name)
+        } else if (pathname === '/') {
+            setActiveItem('Overview')
+        }
+    }, [pathname])
+
+    const handleItemClick = (item: string) => {
+        setActiveItem(item);
+    };
+
+
     return (
         <Sidebar collapsible="icon" {...props}>
             <SidebarHeader>
@@ -180,9 +153,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </SidebarMenu>
             </SidebarHeader>
             <SidebarContent>
-                <NavMain items={data.navMain} />
-                <NavProjects cells={data.cells} />
-                <NavSettings settings={data.settings} />
+                <NavMain items={data.navMain} handleItemClick={handleItemClick} activeItem={activeItem} />
+                <NavProjects cells={data.cells} handleItemClick={handleItemClick} activeItem={activeItem} />
+                <NavSettings settings={data.settings} handleItemClick={handleItemClick} activeItem={activeItem} />
             </SidebarContent>
             <SidebarFooter>
                 <NavUser user={data.user} />

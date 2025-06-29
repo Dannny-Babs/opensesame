@@ -20,6 +20,8 @@ import {
 
 export function NavSettings({
     settings,
+    activeItem,
+    handleItemClick,
 }: {
     settings: {
         title?: string
@@ -31,6 +33,8 @@ export function NavSettings({
             url: string
         }[]
     }[]
+    activeItem: string | null
+    handleItemClick: (item: string) => void
 }) {
     return (
         <SidebarGroup>
@@ -40,13 +44,18 @@ export function NavSettings({
                     <Collapsible
                         key={item.title || item.name}
                         asChild
+                        defaultOpen={activeItem === (item.name || item.title)}
                         className="group/collapsible"
                     >
                         <SidebarMenuItem>
                             {item.items ? (
                                 <>
                                     <CollapsibleTrigger asChild>
-                                        <SidebarMenuButton tooltip={item.title || item.name}>
+                                        <SidebarMenuButton
+                                            tooltip={item.title || item.name}
+                                            isActive={activeItem === (item.name || item.title)}
+                                            onClick={() => handleItemClick(item.name || item.title || '')}
+                                        >
                                             {item.icon && <item.icon />}
                                             <span>{item.title || item.name}</span>
                                             <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -67,7 +76,12 @@ export function NavSettings({
                                     </CollapsibleContent>
                                 </>
                             ) : (
-                                <SidebarMenuButton asChild tooltip={item.title || item.name}>
+                                <SidebarMenuButton
+                                    asChild
+                                    tooltip={item.title || item.name}
+                                    isActive={activeItem === (item.name || item.title)}
+                                    onClick={() => handleItemClick(item.name || item.title || '')}
+                                >
                                     <a href={item.url}>
                                         {item.icon && <item.icon />}
                                         <span>{item.title || item.name}</span>
