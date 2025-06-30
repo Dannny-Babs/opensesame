@@ -7,6 +7,14 @@ import { Input } from '../ui/input'
 interface NodeProps {
     data: {
         label?: string
+        description?: string
+        endpoints?: Array<{ method: string; path: string }>
+        retryEnabled?: boolean
+        retryCount?: number
+        conditionField?: string
+        operator?: string
+        conditionValue?: string
+        promptTemplate?: string
         [key: string]: string | number | boolean | object | null | undefined
     }
     selected?: boolean
@@ -44,53 +52,97 @@ const ActionBlock = ({ label }: { label: string }) => (
     </div>
 )
 
+const Badge = ({ children }: { children: React.ReactNode }) => (
+    <span className="inline-block px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded-md mr-1">{children}</span>
+)
+
 export const nodeTypes = {
-    apiAgent: ({ selected }: NodeProps) => (
-        <CanvasNode
-            nodeType="API Agent"
-            isSelected={selected}
-            className={BASE_NODE_CLASSES}
-        >
-            <div className={HEADER_CLASSES}>API Agent</div>
+    apiAgent: ({ data, selected }: NodeProps) => {
+        const endpoints = data.endpoints || []
+        const endpointCount = endpoints.length
+        const headerText = endpointCount > 0 ? `API Agent (${endpointCount})` : 'API Agent'
 
-            <IntroBlock>
-                <p className="text-gray-700">
-                    Execute any REST or GraphQL call with your service APIs.
-                </p>
-                <button className="mt-2 inline-block px-3 py-1 border border-slate-300 rounded text-sm">
-                    Configure API
-                </button>
-            </IntroBlock>
+        return (
+            <CanvasNode
+                nodeType="API Agent"
+                isSelected={selected}
+                className={BASE_NODE_CLASSES}
+            >
+                <div className={HEADER_CLASSES}>{headerText}</div>
 
-            <InputBlock label="Endpoint" placeholder="GET /orders/{id}" />
-            <ActionBlock label="Test Call" />
-        </CanvasNode>
-    ),
+                {/* Show endpoint badges if configured */}
+                {endpoints.length > 0 && (
+                    <div className="p-2 space-y-1">
+                        {endpoints.slice(0, 2).map((endpoint, index) => (
+                            <div key={index} className="text-xs text-gray-600">
+                                ● {endpoint.method} {endpoint.path}
+                            </div>
+                        ))}
+                        {endpoints.length > 2 && (
+                            <div className="text-xs text-gray-500">
+                                ...(+{endpoints.length - 2} more)
+                            </div>
+                        )}
+                        {data.retryEnabled && (
+                            <Badge>⟳ {data.retryCount || 3}</Badge>
+                        )}
+                    </div>
+                )}
 
-    llmAgent: ({ selected }: NodeProps) => (
-        <CanvasNode
-            nodeType="LLM Agent"
-            isSelected={selected}
-            className={BASE_NODE_CLASSES}
-        >
-            <div className={HEADER_CLASSES}>LLM Agent</div>
+                {endpoints.length === 0 && (
+                    <IntroBlock>
+                        <p className="text-gray-700">
+                            Execute any REST or GraphQL call with your service APIs.
+                        </p>
+                        <button className="mt-2 inline-block px-3 py-1 border border-slate-300 rounded text-sm">
+                            Configure API
+                        </button>
+                    </IntroBlock>
+                )}
 
-            <IntroBlock>
-                <p className="text-gray-700">
-                    Process natural language inputs and generate AI responses.
-                </p>
-                <button className="mt-2 inline-block px-3 py-1 border border-slate-300 rounded text-sm">
-                    Edit Prompt
-                </button>
-            </IntroBlock>
+                <ActionBlock label="Test Call" />
+            </CanvasNode>
+        )
+    },
 
-            <InputBlock
-                label="Prompt Template"
-                placeholder="Analyze this customer request..."
-            />
-            <ActionBlock label="Run AI" />
-        </CanvasNode>
-    ),
+    llmAgent: ({ data, selected }: NodeProps) => {
+        const promptTemplate = data.promptTemplate ? String(data.promptTemplate) : ''
+        const hasPrompt = promptTemplate.length > 0
+        const promptPreview = hasPrompt
+            ? promptTemplate.substring(0, 30) + (promptTemplate.length > 30 ? '...' : '')
+            : ''
+
+        return (
+            <CanvasNode
+                nodeType="LLM Agent"
+                isSelected={selected}
+                className={BASE_NODE_CLASSES}
+            >
+                <div className={HEADER_CLASSES}>LLM Agent</div>
+
+                {hasPrompt ? (
+                    <div className="p-3">
+                        <div className="text-sm text-gray-700 mb-2">{promptPreview}</div>
+                        <div className="flex gap-1">
+                            <Badge>GPT-4</Badge>
+                            <Badge>🧠</Badge>
+                        </div>
+                    </div>
+                ) : (
+                    <IntroBlock>
+                        <p className="text-gray-700">
+                            Process natural language inputs and generate AI responses.
+                        </p>
+                        <button className="mt-2 inline-block px-3 py-1 border border-slate-300 rounded text-sm">
+                            Edit Prompt
+                        </button>
+                    </IntroBlock>
+                )}
+
+                <ActionBlock label="Run AI" />
+            </CanvasNode>
+        )
+    },
 
     webhookAgent: ({ selected }: NodeProps) => (
         <CanvasNode
@@ -114,30 +166,42 @@ export const nodeTypes = {
         </CanvasNode>
     ),
 
-    decision: ({ selected }: NodeProps) => (
-        <CanvasNode
-            nodeType="Decision"
-            isSelected={selected}
-            className={BASE_NODE_CLASSES}
-        >
-            <div className={HEADER_CLASSES}>Decision</div>
+    decision: ({ data, selected }: NodeProps) => {
+        const hasCondition = data.conditionField && data.operator && data.conditionValue
 
-            <IntroBlock>
-                <p className="text-gray-700">
-                    Route your flow with if/else logic based on data or AI outputs.
-                </p>
-                <button className="mt-2 inline-block px-3 py-1 border border-slate-300 rounded text-sm">
-                    Set Conditions
-                </button>
-            </IntroBlock>
+        return (
+            <CanvasNode
+                nodeType="Decision"
+                isSelected={selected}
+                className={BASE_NODE_CLASSES}
+            >
+                <div className={HEADER_CLASSES}>Decision</div>
 
-            <InputBlock
-                label="Condition"
-                placeholder="order.status === 'pending'"
-            />
-            <ActionBlock label="Evaluate" />
-        </CanvasNode>
-    ),
+                {hasCondition ? (
+                    <div className="p-3">
+                        <div className="text-sm text-gray-700 mb-2">
+                            If {data.conditionField} {data.operator} {data.conditionValue}
+                        </div>
+                        <div className="flex justify-between text-xs text-gray-500">
+                            <span>Yes→●</span>
+                            <span>No→●</span>
+                        </div>
+                    </div>
+                ) : (
+                    <IntroBlock>
+                        <p className="text-gray-700">
+                            Route your flow with if/else logic based on data or AI outputs.
+                        </p>
+                        <button className="mt-2 inline-block px-3 py-1 border border-slate-300 rounded text-sm">
+                            Set Conditions
+                        </button>
+                    </IntroBlock>
+                )}
+
+                <ActionBlock label="Evaluate" />
+            </CanvasNode>
+        )
+    },
 
     loop: ({ selected }: NodeProps) => (
         <CanvasNode

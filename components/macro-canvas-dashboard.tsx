@@ -44,6 +44,22 @@ export function MacroCanvasDashboard({ macroId }: MacroCanvasDashboardProps) {
         setSelectedNode(null)
     }, [])
 
+    const onUpdateNode = useCallback((nodeId: string, data: Record<string, unknown>) => {
+        setNodes((nds) =>
+            nds.map((node) =>
+                node.id === nodeId
+                    ? { ...node, data: { ...node.data, ...data } }
+                    : node
+            )
+        )
+        // Update selectedNode if it's the same node being updated
+        setSelectedNode((prevSelected) =>
+            prevSelected?.id === nodeId
+                ? { ...prevSelected, data: { ...prevSelected.data, ...data } }
+                : prevSelected
+        )
+    }, [setNodes])
+
     const onDragStart = (event: React.DragEvent, nodeType: string, data: any) => {
         event.dataTransfer.setData('application/reactflow', nodeType)
         event.dataTransfer.setData('application/nodedata', JSON.stringify(data))
@@ -103,7 +119,11 @@ export function MacroCanvasDashboard({ macroId }: MacroCanvasDashboardProps) {
                     leftToolbar={<LeftToolbar onDragStart={onDragStart} />}
                 />
 
-                <RightInspectorPanel selectedNode={selectedNode} onClose={onCloseInspector} />
+                <RightInspectorPanel
+                    selectedNode={selectedNode}
+                    onClose={onCloseInspector}
+                    onUpdateNode={onUpdateNode}
+                />
             </div>
         </TooltipProvider>
     )
