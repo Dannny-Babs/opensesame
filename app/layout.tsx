@@ -5,6 +5,7 @@ import "@xyflow/react/dist/style.css";
 import { SidebarProvider } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
 import QueryProvider from "@/components/query-provider"
+import { Analytics } from "@vercel/analytics/next"
 
 
 
@@ -41,6 +42,7 @@ export default function RootLayout({
             </main>
           </SidebarProvider>
         </QueryProvider>
+        <Analytics />
       </body>
     </html>
   );
