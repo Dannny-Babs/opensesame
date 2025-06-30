@@ -1,15 +1,6 @@
 "use client"
 
 import * as React from "react"
-import {
-
-    Bot,
-    Settings2,
-    Headset,
-    Home,
-    Workflow,
-} from "lucide-react"
-
 import { NavMain } from "@/components/nav-main"
 import { NavProjects } from "@/components/nav-projects"
 import { NavSettings } from "@/components/nav-settings"
@@ -27,6 +18,7 @@ import {
 import Image from "next/image"
 import { useState, useEffect } from "react"
 import { usePathname } from "next/navigation"
+import { DashboardSquare02Icon, RoboticIcon, WorkflowCircle05Icon, MachineRobotIcon, Settings05Icon, HeadsetIcon } from "@hugeicons/core-free-icons"
 
 
 const data = {
@@ -40,44 +32,44 @@ const data = {
         {
             name: "Overview",
             url: "/",
-            icon: Home,
+            icon: DashboardSquare02Icon,
         },
         {
             name: "Cells",
             url: "/dashboard",
-            icon: Bot,
+            icon: RoboticIcon,
         },
         {
             name: "Macros",
             url: "/macros",
-            icon: Workflow,
+            icon: WorkflowCircle05Icon,
         },
     ],
     cells: [
         {
             name: "Orders",
             url: "#",
-            icon: Bot,
+            icon: MachineRobotIcon,
         },
         {
             name: "Customers",
             url: "#",
-            icon: Bot,
+            icon: MachineRobotIcon  ,
         },
         {
             name: "Products",
             url: "#",
-            icon: Bot,
+            icon: MachineRobotIcon,
         },
         {
             name: "Inventory",
             url: "#",
-            icon: Bot,
+            icon: MachineRobotIcon,
         },
         {
             name: "Sales",
             url: "#",
-            icon: Bot,
+            icon: MachineRobotIcon,
         },
     ],
 
@@ -85,7 +77,7 @@ const data = {
         {
             title: "Settings",
             url: "#",
-            icon: Settings2,
+            icon: Settings05Icon,
             items: [
                 {
                     title: "General",
@@ -108,7 +100,7 @@ const data = {
         {
             name: "Help & Support",
             url: "#",
-            icon: Headset,
+            icon: HeadsetIcon,
         },
     ]
 }
@@ -140,7 +132,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         <SidebarMenuButton size="lg" asChild className="md:h-12 md:p-0 my-2">
                             <a href="#">
                                 <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-10 items-center justify-center rounded-lg">
-                                    <Image src="/logo.png" alt="Daniel Babalola" width={48} height={48} />
+                                    <Image src="/logo.png" alt="OpenSesame Logo" width={40} height={40} className="object-contain w-10 h-10 align-middle " />
                                 </div>
                                 <div className="grid flex-1 text-left text-sm leading-tight font-sans">
                                     <span className="truncate text-xs">Workspace</span>

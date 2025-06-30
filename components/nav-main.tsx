@@ -1,6 +1,6 @@
 "use client"
 
-import { ChevronRight, type LucideIcon } from "lucide-react"
+import { ChevronRight } from "lucide-react"
 
 import {
     Collapsible,
@@ -17,6 +17,7 @@ import {
     SidebarMenuSubButton,
     SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
+import { HugeiconsIcon } from "@hugeicons/react"
 
 export function NavMain({
     items,
@@ -26,7 +27,7 @@ export function NavMain({
     items: {
         name: string
         url: string
-        icon?: LucideIcon
+        icon?: any
         items?: {
             title: string
             url: string
@@ -52,7 +53,7 @@ export function NavMain({
                                                 isActive={isActive}
                                                 onClick={() => handleItemClick(item.name)}
                                             >
-                                                {item.icon && <item.icon />}
+                                                {item.icon && <HugeiconsIcon icon={item.icon} strokeWidth={1.5} className="w-5 h-5" />}
                                                 <span>{item.name}</span>
                                                 <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                                             </SidebarMenuButton>
@@ -80,7 +81,7 @@ export function NavMain({
                                     onClick={() => handleItemClick(item.name)}
                                 >
                                     <a href={item.url}>
-                                        {item.icon && <item.icon />}
+                                        {item.icon && <HugeiconsIcon icon={item.icon} strokeWidth={1.5} className="w-5 h-5" />}
                                         <span>{item.name}</span>
                                     </a>
                                 </SidebarMenuButton>

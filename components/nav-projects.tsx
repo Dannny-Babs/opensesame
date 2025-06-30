@@ -5,7 +5,6 @@ import {
   Forward,
   MoreHorizontal,
   Trash2,
-  type LucideIcon,
 } from "lucide-react"
 
 import {
@@ -24,6 +23,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { HugeiconsIcon } from "@hugeicons/react"
 
 export function NavProjects({
   cells,  
@@ -33,7 +33,7 @@ export function NavProjects({
   cells: {
     name: string
     url: string
-    icon: LucideIcon
+        icon: any
   }[]
   activeItem: string | null
   handleItemClick: (item: string) => void
@@ -52,7 +52,7 @@ export function NavProjects({
               onClick={() => handleItemClick(item.name)}
             >
               <a href={item.url}>
-                <item.icon />
+                <HugeiconsIcon icon={item.icon} strokeWidth={1.5} className="w-5 h-5" />
                 <span>{item.name}</span>
               </a>
             </SidebarMenuButton>
