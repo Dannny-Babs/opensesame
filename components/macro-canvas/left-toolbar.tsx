@@ -42,7 +42,7 @@ export function LeftToolbar({ onDragStart }: LeftToolbarProps) {
         },
     ]
 
-    // Node palette items
+    // Node palette items organized by updated categories
     const paletteItems = [
         {
             category: 'Agents',
@@ -53,7 +53,7 @@ export function LeftToolbar({ onDragStart }: LeftToolbarProps) {
             ]
         },
         {
-            category: 'Logic & Control',
+            category: 'Control Flow',
             items: [
                 { type: 'decision', label: 'Decision', icon: GitBranchIcon },
                 { type: 'loop', label: 'Loop', icon: RepeatIcon },
@@ -86,7 +86,7 @@ export function LeftToolbar({ onDragStart }: LeftToolbarProps) {
                                     items-center justify-center ${item.primary ? 'bg-blue-600 text-white hover:bg-blue-700' : ''} ${item.secondary ? 'bg-gray-200 text-gray-600 hover:bg-gray-300' : ''}`}
                                 onClick={item.action}
                             >
-                                <HugeiconsIcon icon={item.icon} strokeWidth={1.7} className="w-5 h-5"   />
+                                <HugeiconsIcon icon={item.icon} strokeWidth={1.7} className="w-5 h-5" />
                                 <span className="text-sm font-medium">
                                     {item.label}
                                 </span>

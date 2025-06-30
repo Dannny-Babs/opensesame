@@ -40,6 +40,10 @@ export function MacroCanvasDashboard({ macroId }: MacroCanvasDashboardProps) {
         setSelectedNode(node)
     }, [])
 
+    const onCloseInspector = useCallback(() => {
+        setSelectedNode(null)
+    }, [])
+
     const onDragStart = (event: React.DragEvent, nodeType: string, data: any) => {
         event.dataTransfer.setData('application/reactflow', nodeType)
         event.dataTransfer.setData('application/nodedata', JSON.stringify(data))
@@ -99,7 +103,7 @@ export function MacroCanvasDashboard({ macroId }: MacroCanvasDashboardProps) {
                     leftToolbar={<LeftToolbar onDragStart={onDragStart} />}
                 />
 
-                <RightInspectorPanel selectedNode={selectedNode} />
+                <RightInspectorPanel selectedNode={selectedNode} onClose={onCloseInspector} />
             </div>
         </TooltipProvider>
     )

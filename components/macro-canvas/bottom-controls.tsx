@@ -61,7 +61,7 @@ export function BottomControls({ onDragStart }: BottomControlsProps) {
                 <Tooltip>
                     <TooltipTrigger asChild>
                         <Button variant="ghost" size="sm" className="w-10 h-10 p-0" onClick={handleZoomIn}>
-                            <HugeiconsIcon icon={ZoomInAreaIcon} strokeWidth={1.7}        className="w-5 h-5" />
+                            <HugeiconsIcon icon={ZoomInAreaIcon} strokeWidth={1.7} className="w-5 h-5" />
                         </Button>
                     </TooltipTrigger>
                     <TooltipContent>
@@ -81,7 +81,7 @@ export function BottomControls({ onDragStart }: BottomControlsProps) {
                 <Tooltip>
                     <TooltipTrigger asChild>
                         <Button variant="ghost" size="sm" className="w-10 h-10 p-0" onClick={handleResetView}>
-                                    <HugeiconsIcon icon={RefreshIcon} strokeWidth={1.7} className="w-5 h-5" />
+                            <HugeiconsIcon icon={RefreshIcon} strokeWidth={1.7} className="w-5 h-5" />
                         </Button>
                     </TooltipTrigger>
                     <TooltipContent>
