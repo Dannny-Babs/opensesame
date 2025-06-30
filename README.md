@@ -48,7 +48,7 @@ A first-pass, fully-branded prototype of an embedded Canvas for AI-agent workflo
    git clone https://github.com/your-org/macroview-canvas.git
    cd macroview-canvas
    npm install
-````
+   ```
 
 2. **Run locally**
 
@@ -70,5 +70,3 @@ A first-pass, fully-branded prototype of an embedded Canvas for AI-agent workflo
 * Jai (Co-Founder)
 * Daniel: dbabs297@gmail..com
 
-```
-```
