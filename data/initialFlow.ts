@@ -3,21 +3,21 @@ import { Node, Edge } from "@xyflow/react";
 export const initialNodes: Node[] = [
   {
     id: "1",
-    type: "action",
+    type: "apiAgent",
     data: { label: "Start" },
     position: { x: 100, y: 100 },
   },
   {
     id: "2",
-    type: "condition",
+    type: "decision",
     data: { label: "Check Status" },
-    position: { x: 300, y: 200 },
+    position: { x: 400, y: 200 },
   },
   {
     id: "3",
-    type: "action",
+    type: "llmAgent",
     data: { label: "Send Email" },
-    position: { x: 500, y: 100 },
+    position: { x: 700, y: 100 },
   },
 ];
 

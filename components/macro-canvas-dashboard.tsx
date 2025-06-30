@@ -20,14 +20,15 @@ import { LeftToolbar } from './macro-canvas/left-toolbar'
 import { CanvasArea } from './macro-canvas/canvas-area'
 import { RightInspectorPanel } from './macro-canvas/right-inspector-panel'
 import { nodeTypes } from './macro-canvas/node-types'
+import { initialNodes, initialEdges } from '@/data/initialFlow'
 
 interface MacroCanvasDashboardProps {
     macroId?: string
 }
 
 export function MacroCanvasDashboard({ macroId }: MacroCanvasDashboardProps) {
-    const [nodes, setNodes, onNodesChange] = useNodesState([])
-    const [edges, setEdges, onEdgesChange] = useEdgesState([])
+    const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
+    const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
     const [selectedNode, setSelectedNode] = useState<Node | null>(null)
 
     const onConnect = useCallback(
@@ -56,9 +57,12 @@ export function MacroCanvasDashboard({ macroId }: MacroCanvasDashboardProps) {
                 return
             }
 
+            // Get the bounding rect of the React Flow container
+            const reactFlowBounds = (event.target as HTMLElement).getBoundingClientRect()
+
             const position = {
-                x: event.clientX - 200, // Approximate offset for canvas position
-                y: event.clientY - 100,
+                x: event.clientX - reactFlowBounds.left,
+                y: event.clientY - reactFlowBounds.top,
             }
 
             const newNode: Node = {
