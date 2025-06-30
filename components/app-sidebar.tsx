@@ -18,7 +18,7 @@ import {
 import Image from "next/image"
 import { useState, useEffect } from "react"
 import { usePathname } from "next/navigation"
-import { DashboardSquare02Icon, RoboticIcon, WorkflowCircle05Icon, MachineRobotIcon, Settings05Icon, HeadsetIcon } from "@hugeicons/core-free-icons"
+import { DashboardSquare02Icon, RoboticIcon, WorkflowCircle05Icon, Settings05Icon, HeadsetIcon, GridIcon } from "@hugeicons/core-free-icons"
 
 
 const data = {
@@ -49,27 +49,27 @@ const data = {
         {
             name: "Orders",
             url: "#",
-            icon: MachineRobotIcon,
+            icon: GridIcon,
         },
         {
             name: "Customers",
             url: "#",
-            icon: MachineRobotIcon  ,
+            icon: GridIcon,
         },
         {
             name: "Products",
             url: "#",
-            icon: MachineRobotIcon,
+            icon: GridIcon,
         },
         {
             name: "Inventory",
             url: "#",
-            icon: MachineRobotIcon,
+            icon: GridIcon,
         },
         {
             name: "Sales",
             url: "#",
-            icon: MachineRobotIcon,
+            icon: GridIcon,
         },
     ],
 
