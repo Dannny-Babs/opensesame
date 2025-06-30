@@ -91,7 +91,7 @@ export function RightInspectorPanel({ selectedNode, onClose, onUpdateNode }: Rig
                 return (
                     <div className="p-4 bg-blue-50 border-t border-blue-200">
                         <p className="text-sm text-blue-700">
-                            Node-specific configuration for {selectedNode.type} will be available in the next update.
+                            Node-specific configuration for {String(selectedNode.type)} will be available in the next update.
                         </p>
                     </div>
                 )
@@ -144,7 +144,7 @@ export function RightInspectorPanel({ selectedNode, onClose, onUpdateNode }: Rig
                 {renderNodeSpecificSections()}
 
                 {/* Prompt text guidance for templated nodes */}
-                {['llmAgent', 'webhookAgent', 'dbQuery'].includes(selectedNode.type) && (
+                {selectedNode.type && ['llmAgent', 'webhookAgent', 'dbQuery'].includes(String(selectedNode.type)) && (
                     <div className="p-4 bg-yellow-50 border-t border-yellow-200">
                         <p className="text-xs text-yellow-700">
                             💡 Use <code>{'{{variableName}}'}</code> to inject data from prior nodes.
@@ -158,7 +158,7 @@ export function RightInspectorPanel({ selectedNode, onClose, onUpdateNode }: Rig
                 <Button variant="outline" onClick={handleCancel} className="flex-1 py-5">
                     Cancel
                 </Button>
-                <Button onClick={handleSave} className="flex-1 bg-slate-600 text-white hover:bg-slate-700 py-5 ">
+                <Button onClick={handleSave} className="flex-1 bg-slate-600 text-white hover:bg-slate-700 py-5">
                     Save
                 </Button>
             </div>
@@ -199,16 +199,15 @@ function ApiAgentSections({ formData, setFormData, openSections, toggleSection }
                         disabled={endpoints.length >= 3}
                         variant="outline"
                         size="sm"
-                        className="w-full h-10 shadow-none border-slate-200"
+                        className="w-full h-10 border-slate-200"
                     >
-                        <Plus className="w-4 h-4mr-2" />
+                        <Plus className="w-4 h-4 mr-2" />
                         Add Endpoint
                     </Button>
 
                     {endpoints.map((endpoint, index) => (
-                        <div key={index} className=" border-slate-200 border-b pb-2 space-y-2">
+                        <div key={index} className=" space-y-2">
                             <div className="flex gap-2 h-10 items-center ">
-                                
                                 <select
                                     value={endpoint.method}
                                     onChange={(e) => {
@@ -216,7 +215,7 @@ function ApiAgentSections({ formData, setFormData, openSections, toggleSection }
                                         newEndpoints[index] = { ...endpoint, method: e.target.value }
                                         setFormData((prev) => ({ ...prev, endpoints: newEndpoints }))
                                     }}
-                                    className="px-2 py-2 border border-gray-300 rounded-md text-sm w-24"
+                                    className="px-3 py-2 border border-gray-300 rounded-md text-sm w-24"
                                     aria-label="HTTP Method"
                                 >
                                     <option value="GET">GET</option>
@@ -232,7 +231,7 @@ function ApiAgentSections({ formData, setFormData, openSections, toggleSection }
                                         setFormData((prev) => ({ ...prev, endpoints: newEndpoints }))
                                     }}
                                     placeholder="/api/orders/{id}"
-                                    className="flex-1 h-10 shadow-none border-slate-200"
+                                    className="flex-1 h-10 border-slate-200"
                                 />
                                 <Button variant="ghost" size="sm" onClick={() => removeEndpoint(index)}>
                                     <Trash2 className="w-4 h-4" />
@@ -260,7 +259,7 @@ function ApiAgentSections({ formData, setFormData, openSections, toggleSection }
                             value={String(formData.timeout || '')}
                             onChange={(e) => setFormData((prev) => ({ ...prev, timeout: parseInt(e.target.value) || 0 }))}
                             placeholder="30"
-                            className="mt-1"
+                            className="mt-1 shadow-none border-slate-200 h-10"
                         />
                     </div>
                     <div>
@@ -269,10 +268,11 @@ function ApiAgentSections({ formData, setFormData, openSections, toggleSection }
                                 type="checkbox"
                                 checked={Boolean(formData.retryEnabled)}
                                 onChange={(e) => setFormData((prev) => ({ ...prev, retryEnabled: e.target.checked }))}
+
                             />
                             <span className="text-sm font-medium text-gray-700">Enable Retry</span>
                         </label>
-                        {formData.retryEnabled && (
+                        {Boolean(formData.retryEnabled) && (
                             <Input
                                 type="number"
                                 min="1"
@@ -280,7 +280,7 @@ function ApiAgentSections({ formData, setFormData, openSections, toggleSection }
                                 value={String(formData.retryCount || '')}
                                 onChange={(e) => setFormData((prev) => ({ ...prev, retryCount: parseInt(e.target.value) || 1 }))}
                                 placeholder="3"
-                                className="mt-2"
+                                className="mt-2 shadow-none border-slate-200 h-10"
                             />
                         )}
                     </div>
@@ -314,6 +314,7 @@ function DecisionSections({ formData, setFormData, openSections, toggleSection }
                         value={String(formData.operator || '')}
                         onChange={(e) => setFormData((prev) => ({ ...prev, operator: e.target.value }))}
                         className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md text-sm"
+                        aria-label="Operator"
                     >
                         <option value="">Select operator</option>
                         <option value="==">==</option>
