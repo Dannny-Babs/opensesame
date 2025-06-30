@@ -36,7 +36,7 @@ const data = {
         },
         {
             name: "Cells",
-            url: "/dashboard",
+            url: "/cells",
             icon: RoboticIcon,
         },
         {
