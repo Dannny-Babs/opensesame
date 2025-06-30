@@ -5,11 +5,8 @@ import React, { useRef } from 'react'
 import {
     ReactFlow,
     Background,
-    Controls,
-    MiniMap,
     Node,
     Edge,
-    Connection,
     ConnectionMode,
     OnNodesChange,
     OnEdgesChange,
@@ -50,7 +47,7 @@ export function CanvasArea({
     const reactFlowWrapper = useRef<HTMLDivElement>(null)
 
     return (
-        <div className="flex-1 relative">
+        <div className="flex-1 relative h-screen">
             {leftToolbar}
             <BottomControls onDragStart={onDragStart} />
             <TestAgentButton />
@@ -70,8 +67,7 @@ export function CanvasArea({
                     connectionMode={ConnectionMode.Loose}
                     fitView
                 >
-                    <Background gap={20} size={1} />
-                    <Controls />
+                    <Background gap={20} size={1} className='!bg-gray-50' />
                 </ReactFlow>
             </div>
 

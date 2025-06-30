@@ -1,21 +1,8 @@
 "use client"
 
 import React from 'react'
-import { motion } from 'framer-motion'
-import {
-    Save,
-    UploadCloud,
-    Play,
-    FileCode,
-    Settings,
-    Database,
-    Bot,
-    Bell,
-    BookOpen,
-    Repeat,
-    GitBranch,
-    HardDrive
-} from 'lucide-react'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { Bookmark02Icon, FileExportIcon, PlayIcon, EnergyIcon, Robot01Icon, ChatBotIcon, Saturn01Icon, GitBranchIcon, RepeatIcon, Menu09Icon, AiLearningIcon, DatabaseIcon, HardDriveIcon } from '@hugeicons/core-free-icons'
 import { Button } from '@/components/ui/button'
 import {
     Tooltip,
@@ -24,32 +11,32 @@ import {
 } from '@/components/ui/tooltip'
 
 interface LeftToolbarProps {
-    onDragStart: (event: React.DragEvent, nodeType: string, data: any) => void
+    onDragStart: (event: React.DragEvent, nodeType: string, data: { type: string; label: string; icon: unknown }) => void
 }
 
 export function LeftToolbar({ onDragStart }: LeftToolbarProps) {
     // Simplified toolbar items
     const toolbarItems = [
         {
-            icon: Save,
-            label: 'Save Macro',
+            icon: Bookmark02Icon,
+            label: 'Save ',
             action: () => console.log('Save macro')
         },
 
         {
-            icon: FileCode,
+            icon: FileExportIcon,
             label: 'Export JSON',
             action: () => console.log('Export JSON')
         },
         {
-            icon: Play,
-            label: 'Run Macro',
+            icon: PlayIcon,
+            label: 'Run',
             action: () => console.log('Run macro'),
             secondary: true
         },
         {
-            icon: UploadCloud,
-            label: 'Publish Macro',
+            icon: EnergyIcon,
+            label: 'Publish',
             action: () => console.log('Publish macro'),
             primary: true
         },
@@ -60,25 +47,25 @@ export function LeftToolbar({ onDragStart }: LeftToolbarProps) {
         {
             category: 'Agents',
             items: [
-                { type: 'apiAgent', label: 'API Agent', icon: Settings },
-                { type: 'llmAgent', label: 'LLM Agent', icon: Bot },
-                { type: 'webhookAgent', label: 'Webhook Agent', icon: Bell },
+                { type: 'apiAgent', label: 'API Agent', icon: Robot01Icon },
+                { type: 'llmAgent', label: 'LLM Agent', icon: ChatBotIcon },
+                { type: 'webhookAgent', label: 'Webhook Agent', icon: Saturn01Icon },
             ]
         },
         {
             category: 'Logic & Control',
             items: [
-                { type: 'decision', label: 'Decision', icon: GitBranch },
-                { type: 'loop', label: 'Loop', icon: Repeat },
-                { type: 'parallel', label: 'Parallel', icon: GitBranch },
+                { type: 'decision', label: 'Decision', icon: GitBranchIcon },
+                { type: 'loop', label: 'Loop', icon: RepeatIcon },
+                { type: 'parallel', label: 'Parallel', icon: Menu09Icon },
             ]
         },
         {
             category: 'Data & Knowledge',
             items: [
-                { type: 'kbLookup', label: 'KB Lookup', icon: BookOpen },
-                { type: 'dbQuery', label: 'Database Query', icon: Database },
-                { type: 'cache', label: 'Cache/State', icon: HardDrive },
+                { type: 'kbLookup', label: 'KB Lookup', icon: AiLearningIcon },
+                { type: 'dbQuery', label: 'Database Query', icon: DatabaseIcon },
+                { type: 'cache', label: 'Cache/State', icon: HardDriveIcon },
             ]
         }
     ]
@@ -99,7 +86,7 @@ export function LeftToolbar({ onDragStart }: LeftToolbarProps) {
                                     items-center justify-center ${item.primary ? 'bg-blue-600 text-white hover:bg-blue-700' : ''} ${item.secondary ? 'bg-gray-200 text-gray-600 hover:bg-gray-300' : ''}`}
                                 onClick={item.action}
                             >
-                                <item.icon className="w-5 h-5" />
+                                <HugeiconsIcon icon={item.icon} strokeWidth={1.7} className="w-5 h-5"   />
                                 <span className="text-sm font-medium">
                                     {item.label}
                                 </span>
@@ -114,29 +101,28 @@ export function LeftToolbar({ onDragStart }: LeftToolbarProps) {
 
 
             {/* Node Palette */}
-            <div className="absolute top-2 left-2 z-10 space-y-2w-16 
-                    bg-white border rounded-lg border-gray-200 p-2 flex 
+            <div className="absolute top-2 left-2 z-10
+                    bg-white border-[1.5px] rounded-xl border-slate-200 p-2 flex 
                     flex-col space-y-2 overflow-y-auto font-sans">
                 {paletteItems.map((category) => (
                     <div key={category.category} className="space-y-1">
                         {category.items.map((item) => (
                             <Tooltip key={item.type}>
                                 <TooltipTrigger asChild>
-                                    <motion.div
+                                    <div
                                         draggable
-                                        onDragStart={(e) => onDragStart
-                                            (e as any, item.type, item)}
-                                        whileHover={{ scale: 1.05 }}
+                                        onDragStart={(e) => onDragStart(e, item.type, item)}
                                         className="w-10 h-10 border 
-                                                border-gray-200 rounded-lg 
+                                                border-slate-200 rounded-lg 
                                                 cursor-move 
                                                 hover:border-blue-300 bg-white 
                                                 flex items-center 
-                                                justify-center"
+                                                justify-center hover:scale-105 
+                                                transition-transform"
                                     >
-                                        <item.icon className="w-4 h-4 
-                                                text-gray-600" />
-                                    </motion.div>
+                                        <HugeiconsIcon icon={item.icon} strokeWidth={1.5} className="w-5 h-5 
+                                                text-slate-700" />
+                                    </div>
                                 </TooltipTrigger>
                                 <TooltipContent side="right">
                                     <p>{item.label}</p>

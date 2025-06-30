@@ -1,8 +1,9 @@
 "use client"
 
 import React from 'react'
-import { MessageCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { Comment03Icon } from '@hugeicons/core-free-icons'
 
 export function TestAgentButton() {
     const handleTestAgent = () => {
@@ -12,11 +13,12 @@ export function TestAgentButton() {
 
     return (
         <Button
-            className="absolute bottom-4 rounded-full right-4 z-10 bg-blue-600 text-white hover:bg-blue-700 font-sans"
+            className="absolute bottom-4 rounded-full right-4 z-10 bg-slate-600 text-white hover:bg-slate-700 font-sans"
             size="lg"
             onClick={handleTestAgent}
         >
-            <MessageCircle className="w-4 h-4 " />
+
+            <HugeiconsIcon icon={Comment03Icon} strokeWidth={1.5} className="w-5 h-5" />
             Test Agent
         </Button>
     )
