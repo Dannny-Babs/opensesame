@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import {  Geist_Mono, Manrope } from "next/font/google";
+import { Geist_Mono, Manrope } from "next/font/google";
 import "./globals.css";
 import { SidebarProvider } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
+import QueryProvider from "@/components/query-provider"
 
 
 
@@ -16,7 +17,7 @@ const manrope = Manrope({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = { 
+export const metadata: Metadata = {
   title: "OpenSesame",
   description: "The AI coworker for your SaaS product",
 };
@@ -31,12 +32,14 @@ export default function RootLayout({
       <body
         className={` ${manrope.variable} ${geistMono.variable} antialiased`}
       >
-        <SidebarProvider>
-          <AppSidebar />
-          <main className="flex-1">
-            {children}
-          </main>
-        </SidebarProvider>
+        <QueryProvider>
+          <SidebarProvider>
+            <AppSidebar />
+            <main className="flex-1">
+              {children}
+            </main>
+          </SidebarProvider>
+        </QueryProvider>
       </body>
     </html>
   );
