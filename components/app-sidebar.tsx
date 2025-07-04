@@ -15,10 +15,11 @@ import {
     SidebarMenuItem,
     SidebarMenuButton,
 } from "@/components/ui/sidebar"
-import Image from "next/image"
+
 import { useState, useEffect } from "react"
 import { usePathname } from "next/navigation"
 import { DashboardSquare02Icon, RoboticIcon, WorkflowCircle05Icon, Settings05Icon, HeadsetIcon, GridIcon } from "@hugeicons/core-free-icons"
+import { GalleryVerticalEnd } from "lucide-react"
 
 
 const data = {
@@ -131,12 +132,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild className="md:h-12 md:p-0 my-2">
                             <a href="#">
-                                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-10 items-center justify-center rounded-lg">
-                                    <Image src="/logo.png" alt="OpenSesame Logo" width={40} height={40} className="object-contain w-10 h-10 align-middle " />
+                                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+                                    <GalleryVerticalEnd className="size-4" />
                                 </div>
                                 <div className="grid flex-1 text-left text-sm leading-tight font-sans">
                                     <span className="truncate text-xs">Workspace</span>
-                                    <span className="text-lg  font-semibold tracking-tight">OpenSesame</span>
+                                    <span className="text-lg  font-semibold tracking-tight">MacroAgents</span>
 
                                 </div>
                             </a>

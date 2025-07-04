@@ -20,7 +20,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "OpenSesame",
+  title: "MacroAgents",
   description: "The AI coworker for your SaaS product",
 };
 
