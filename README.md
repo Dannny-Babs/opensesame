@@ -66,7 +66,6 @@ A first-pass, fully-branded prototype of an embedded Canvas for AI-agent workflo
 
 ## Contact
 
-* Anthony (Founder)
-* Jai (Co-Founder)
+
 * Daniel: dbabs297@gmail..com
 
